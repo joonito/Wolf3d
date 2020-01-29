@@ -17,6 +17,6 @@ void *mlx_int();
 
 
 
-##Things to know
+## Things to know
 * X-Window
 * Cocoa programming
