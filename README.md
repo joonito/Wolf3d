@@ -15,13 +15,17 @@ void *mlx_int();
 3. Image management
 4. Events management (such as mouse, keboard..)
 
-#### What is X-Window
+#### BSD/LINUX X-Window
 Network-oriented graphical system for Unix.<br>
 **X-Window** has tow main parts
 1. Draw something on the screen and/or get keboard entries.
 2. The X-Server manages the screen, keboard and mouse (It is often refered to as a "display")
+                                  network connection  
+drawing orders       : (software) -----------------> (X-Server)  
+keboard/mouse events : (X-Server) -----------------> (software)  
 
-(software) --- (X-Server)
+#### MACOSX CONCEPT
+
 
 ## Things to know
 * Cocoa programming
