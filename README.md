@@ -9,3 +9,14 @@
 ```c
 void *mlx_int();
 ```
+#### What can be done with MiniLibX?
+1. Dimple window creation
+2. Drawing
+3. Image management
+4. Events management (such as mouse, keboard..)
+
+
+
+##Things to know
+* X-Window
+* Cocoa programming
