@@ -77,9 +77,22 @@ mlx_new_image() :
 - Returns a void * identifier needed to manipulate this image later.
 - Needs the size(width, height) of the image, mlx_ptr to be created
 - User can draw inside the image.
-- Dump the image into specified window at any time to display it.(**mlx_put_image_to_window()**)
 
+mlx_put_image_to_window() :
+- Dump the image into specified window at any time to display it.
+- Need three identifiers are needed to call. Connection to display(mlx_ptr), the window to use(win_ptr) and the image stored in memory(img_ptr).
+- x, y coordinates define where the image should be placed in the window.
 
+mlx_get_data_addr() :
+- Returns information about the created image, allowing a user to modify it later
+- img_ptr parameter specifies the image to use
+- bits_per_pixel will be filled with the number of bits needed to represent a pixel color
+- size_line is the number of bytes used to store one line of the image in memory. This information is needed to move from one line to another in the image.
+- endian tells you whether the pixel color in the image needs to be stored in little endian(endian == 0), or bit endian(endian == 1)
+- returns a char * address that represents the begining of the memory area where the image is stored.
+
+mlx_destry_image:
+- Destroys the given image (img_ptr)
 
 ## Things to know
 * Cocoa programming
