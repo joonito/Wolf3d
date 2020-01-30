@@ -46,7 +46,7 @@ To use MiniLibX functions, you'll need to link your software with the MiniLibX l
 ```
 -lmlx -framework OpenGL -framework AppKit
 ```
-You may also need to specify the path to these libraries, using the -L flag.__
+You may also need to specify the path to these libraries, using the -L flag.<br>
 
 ### man1/mlx_loop.1
 
@@ -64,9 +64,9 @@ Assign a function to each three follwing events:
 The three functions work exactly the same way.<br>
 - <b>funct_ptr</b> is a pointer to the function you want to be called when an event occurs.
 - This assignment is specific to the window defined by the <b>win_ptr</b> identifier.
-- <b>param</b> address will be passed to the function to store parameters it might need
-- <b>mlx_loop_hook</b> function is dentical to the previous ones, but the given function will be called when no event occurs.
-- param is the address specified in the <b>mlx_*_hook</b> calls. This address is never used nor modified by the MiniLibX.
+- param address will be passed to the function to store parameters it might need
+- mlx_loop_hook function is dentical to the previous ones, but the given function will be called when no event occurs.
+- param is the address specified in the mlx_*_hook calls. This address is never used nor modified by the MiniLibX.
 - On key and mouse events, additional infor-mation  is  passed:  keycode tells you which key is pressed.
 - In MacOS, ( x , y ) are the coordinates of the mouse click in the window, and button tells you which mouse button was pressed.
 - See source code of mlx_int_param_event.c to find out how the MiniLibX will call your own function for a specific event.
