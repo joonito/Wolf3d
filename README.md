@@ -27,7 +27,7 @@ keboard/mouse events : (X-Server) -----------------> (software)
 #### MACOSX CONCEPT
 The MacOSX operating system handle graphical access to the screen (or "display")<br>
 
-            draw<br>
+           draw<br>
 (software) -----> (screen)<br>
             get<br>
 (software) <----- (keyboard & mouse entries)<br>
