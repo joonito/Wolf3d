@@ -25,6 +25,24 @@ drawing orders       : (software) -----------------> (X-Server)
 keboard/mouse events : (X-Server) -----------------> (software)  
 
 #### MACOSX CONCEPT
+The MacOSX operating system handle graphical access to the screen (or "display")<br>
+
+            draw<br>
+(software) -----> (screen)<br>
+            get<br>
+(software) <----- (keyboard & mouse entries)<br>
+
+#### INCLUDE FILE
+mlx.h should be included for a correct use of the MiniLibX API. It only contains function proto types, no structure is needed.
+
+#### LIBRARY FUNCTIONS
+
+First, we need to initialize the connection between the software and display.<br>
+            initialize connection<br>
+(software) <----------------------> (display)<br>
+Second, send graphical orders
+           draw yellow pixel in this window<br>
+(software) --------------------------------> (display)<br>
 
 
 ## Things to know
