@@ -59,12 +59,25 @@ Assign a function to each three follwing events:
 - mlx_key_hook(A key is pressed)
 - mlx_mouse_hook(The mouse button is pressed)
 - mlx_expose_hook(A part of the window should be re-drawn)
-The three functions work exactly the same way.__
-**funct_ptr** is a pointer to the function you want to be called when an event occurs.__
-This assignment is specific to the window defined by the **win_ptr** identifier.__
-**param** address will be passed to the function to store parameters it might need.__
-**mlx_loop_hook** function is dentical to the previous ones, but the given function will be called when no event occurs.__
-param is the address specified in the mlx_\*_hook calls. This address is never used nor modified by the MiniLibX. On key and mouse events, additional infor-mation  is  passed:  keycode tells you which key is pressed
+<br/>
+The three functions work exactly the same way.<br>
+**funct_ptr** is a pointer to the function you want to be called when an event occurs.<br/>
+This assignment is specific to the window defined by the **win_ptr** identifier.<br/>
+**param** address will be passed to the function to store parameters it might need,<br/>
+**mlx_loop_hook** function is dentical to the previous ones, but the given function will be called when no event occurs.<br/>
+param is the address specified in the mlx_\*_hook calls. This address is never used nor modified by the MiniLibX. <br/>
+On key and mouse events, additional infor-mation  is  passed:  keycode tells you which key is pressed.<br/>
+In MacOS, ( x , y ) are the coordinates of the mouse click in the window, and button tells you which mouse button was pressed.<br/>
+See source code of mlx_int_param_event.c to find out how the MiniLibX will call your own function for a specific event.<br/>
+
+### man1/mlx_new_image.1
+mlx_new_image() :
+- Creates a new image in memory.
+- Returns a void * identifier needed to manipulate this image later.
+- Needs the size(width, height) of the image, mlx_ptr to be created
+- User can draw inside the image.
+- Dump the image into specified window at any time to display it.(**mlx_put_image_to_window()**)
+
 
 
 ## Things to know
