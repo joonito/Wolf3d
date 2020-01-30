@@ -41,9 +41,9 @@ First, we need to initialize the connection between the software and display.<br
 <pre>            initialize connection<br>
 (software) <----------------------> (display)<br>
 Second, send graphical orders
-<pre>           draw yellow pixel in this window<br>
+           draw yellow pixel in this window<br>
 (software) --------------------------------> (display)<br>
-
+<pre>
 
 ## Things to know
 * Cocoa programming
