@@ -15,14 +15,6 @@ void *mlx_int();
 3. Image management
 4. Events management (such as mouse, keboard..)
 
-#### BSD/LINUX X-Window
-Network-oriented graphical system for Unix.<br>
-**X-Window** has tow main parts<br>
-1. Draw something on the screen and/or get keboard entries.
-2. The X-Server manages the screen, keboard and mouse (It is often refered to as a "display")
-<pre>                                  network connection  
-drawing orders       : (software) -----------------> (X-Server)  
-keboard/mouse events : (X-Server) -----------------> (software)  
 </pre>
 #### MACOSX CONCEPT
 The MacOSX operating system handle graphical access to the screen (or "display")<br>
@@ -48,7 +40,34 @@ Second, send graphical orders
 (software) --------------------------------> (display)
 </pre>
 
+#### LINKING MiniLibX on MACOSX
+To use MiniLibX functions, you'll need to link your software with the MiniLibX library, and several system frameworks:
+```
+-lmlx -framework OpenGL -framework AppKit
+```
+You may also need to specify the path to these libraries, using the -L flag.__
+
+### man1/mlx_loop.1
+
+mlx_loop() is..
+- for receive events
+- Infinite loop that waits for an event
+- Calls a user-defined function associated with this event.
+- Need single parameter **mlx_ptr**
+
+Assign a function to each three follwing events:
+- mlx_key_hook(A key is pressed)
+- mlx_mouse_hook(The mouse button is pressed)
+- mlx_expose_hook(A part of the window should be re-drawn)
+The three functions work exactly the same way.__
+**funct_ptr** is a pointer to the function you want to be called when an event occurs.__
+This assignment is specific to the window defined by the **win_ptr** identifier.__
+**param** address will be passed to the function to store parameters it might need.__
+**mlx_loop_hook** function is dentical to the previous ones, but the given function will be called when no event occurs.__
+param is the address specified in the mlx_\*_hook calls. This address is never used nor modified by the MiniLibX. On key and mouse events, additional infor-mation  is  passed:  keycode tells you which key is pressed
+
 
 ## Things to know
 * Cocoa programming
 * keyborad & mouse entries
+* linking
