@@ -17,21 +17,21 @@ void *mlx_int();
 
 #### BSD/LINUX X-Window
 Network-oriented graphical system for Unix.<br>
-**X-Window** has tow main parts
+**X-Window** has tow main parts<br>
 1. Draw something on the screen and/or get keboard entries.
 2. The X-Server manages the screen, keboard and mouse (It is often refered to as a "display")
 <pre>                                  network connection  
 drawing orders       : (software) -----------------> (X-Server)  
 keboard/mouse events : (X-Server) -----------------> (software)  
-
+</pre>
 #### MACOSX CONCEPT
 The MacOSX operating system handle graphical access to the screen (or "display")<br>
 
 <pre>           draw<br>
 (software) -----> (screen)<br>
-<pre>            get<br>
+            get<br>
 (software) <----- (keyboard & mouse entries)<br>
-
+</pre>
 #### INCLUDE FILE
 mlx.h should be included for a correct use of the MiniLibX API. It only contains function proto types, no structure is needed.
 
