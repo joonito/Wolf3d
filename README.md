@@ -40,11 +40,12 @@ mlx.h should be included for a correct use of the MiniLibX API. It only contains
 First, we need to initialize the connection between the software and display.<br>
 <pre>            initialize connection<br>
 (software) <----------------------> (display)<br>
-
+</pre>
 Second, send graphical orders
+<pre>
            draw yellow pixel in this window<br>
 (software) --------------------------------> (display)<br>
-<pre>
+</pre>
 
 ## Things to know
 * Cocoa programming
