@@ -17,6 +17,7 @@ void *mlx_int();
 
 </pre>
 #### MACOSX CONCEPT
+
 The MacOSX operating system handle graphical access to the screen (or "display")<br>
 
 <pre>           draw<br>
@@ -25,6 +26,7 @@ The MacOSX operating system handle graphical access to the screen (or "display")
 (software) <----- (keyboard & mouse entries)<br>
 </pre>
 #### INCLUDE FILE
+
 mlx.h should be included for a correct use of the MiniLibX API. It only contains function proto types, no structure is needed.
 
 #### LIBRARY FUNCTIONS
