@@ -39,7 +39,7 @@ mlx.h should be included for a correct use of the MiniLibX API. It only contains
 
 First, we need to initialize the connection between the software and display.<br>
 <pre>
-            initialize connection (<b>mlx_init() will do this, and return a <u>void *</u> identifier for further calls.</b>)
+            initialize connection (<b>mlx_init()</b> will do this, and return a <u>void *</u> identifier for further calls.)
 (software) <----------------------> (display)
 </pre>
 Second, send graphical orders
