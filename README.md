@@ -20,7 +20,7 @@ Network-oriented graphical system for Unix.<br>
 **X-Window** has tow main parts
 1. Draw something on the screen and/or get keboard entries.
 2. The X-Server manages the screen, keboard and mouse (It is often refered to as a "display")
-                                  network connection  
+<pre>                                  network connection  
 drawing orders       : (software) -----------------> (X-Server)  
 keboard/mouse events : (X-Server) -----------------> (software)  
 
@@ -38,10 +38,10 @@ mlx.h should be included for a correct use of the MiniLibX API. It only contains
 #### LIBRARY FUNCTIONS
 
 First, we need to initialize the connection between the software and display.<br>
-            initialize connection<br>
+<pre>            initialize connection<br>
 (software) <----------------------> (display)<br>
 Second, send graphical orders
-           draw yellow pixel in this window<br>
+<pre>           draw yellow pixel in this window<br>
 (software) --------------------------------> (display)<br>
 
 
