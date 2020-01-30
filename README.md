@@ -15,7 +15,6 @@ void *mlx_int();
 3. Image management
 4. Events management (such as mouse, keboard..)
 
-</pre>
 #### MACOSX CONCEPT
 
 The MacOSX operating system handle graphical access to the screen (or "display")<br>
