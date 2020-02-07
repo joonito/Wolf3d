@@ -32,8 +32,8 @@
 #define WINDOW_HEIGHT 480
 
 //starting position
-#define START_POS_X 3
-#define START_POS_Y 2
+#define START_POS_X 12
+#define START_POS_Y 22
 #define DIR_VEC_X 1
 #define DIR_VEC_Y 0
 #define CAM_VEC_X 0
@@ -111,6 +111,7 @@ typedef struct      s_wf3d
     t_pointf        my_pos;
     t_pointf        direction;
     t_pointf        camera_plane;
+    pthread_t       threads[NUM_THREADS];
     render_fp       render_fn[NUM_THREADS];
     t_boolean       state_change;
 }                   t_wf3d;
@@ -129,7 +130,7 @@ t_pointf            to_pointf(float x, float y);
 int                 key_press(int keycode, void *param);
 int                 mouse_move(int x, int y, void *param);
 int                 mouse_press(int button, int x, int y, void *param);
-void                change_coordinate(t_wf3d *wf3d, int keycode);
+void                key_press_move(t_wf3d *wf3d, int keycode);
 void                change_direction(t_wf3d *wf3d, int mouse_pos);
 int                 prepare_new_img(void *param);
 int                 refresh_img(void * param);

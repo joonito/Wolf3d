@@ -1,7 +1,8 @@
 #include "../include/wolf3d.h"
 
-void		int_arr_print(t_wf3d *wf3d, int **arr)
+void		int_arr_print(t_wf3d *wf3d)
 {
+	int **arr = wf3d->map;
 	if (arr == NULL)
 		return ;
 	int w = wf3d->map_width;
@@ -25,9 +26,15 @@ static void	store_line(t_wf3d *wf3d, char **arr_of_str)
 
 	i = 0;
 	printf("map_height0 == %zu\n", wf3d->map_height);
+	printf("map_capacity == %zu\n", wf3d->map_capacity);
 	int_arr = ft_memalloc(wf3d->map_width * sizeof(int));
-	while (*arr_of_str != NULL)
-		int_arr[i++] = ft_atoi(*arr_of_str++);
+	printf("arr of str len == %zu\n", arr_of_strlen(arr_of_str));
+	while (arr_of_str[i] != NULL)
+	{
+		int_arr[i] = ft_atoi(arr_of_str[i]);
+		i++;
+	}
+	printf(" i == %d\n", i);
 	if (wf3d->map == NULL)
 	{
 		wf3d->map = ft_memalloc(sizeof(int *));
@@ -41,15 +48,12 @@ static void	store_line(t_wf3d *wf3d, char **arr_of_str)
 		wf3d->map = ft_memalloc(sizeof(int *) * wf3d->map_capacity);
 		for (i = 0; (size_t)i < wf3d->map_height; i++)
 			wf3d->map[i] = tmp[i];
-		// for (i = 0; (size_t)i < wf3d->map_height; i++)
-		// 	free(tmp[i]);
-		// free(tmp);
+		free(tmp);
 		wf3d->map_height = i;
 	}
-	printf("map_height1 == %zu\n", wf3d->map_height);
 	wf3d->map[wf3d->map_height++] = int_arr;
-	printf("map_height2 == %zu\n", wf3d->map_height);
-	int_arr_print(wf3d, tmp);
+	// printf("map_height1 == %zu\n", wf3d->map_height);
+	// printf("map_height2 == %zu\n", wf3d->map_height);
 	return ;
 }
 
@@ -77,5 +81,6 @@ int			map_extractor(const char *path, t_wf3d *wf3d)
 		store_line(wf3d, arr_of_str);
 		ft_strdel(&line);
 	}
+	int_arr_print(wf3d);
 	return ((wf3d->map_width == 0) ? EMPTY_MAP : NO_ERR);
 }

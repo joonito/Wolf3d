@@ -28,7 +28,6 @@ static int	init_wolf3d(t_wf3d *wf3d)
 	wf3d->win_ptr = mlx_new_window(wf3d->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "wolf3d");
 	wf3d->img_ptr = mlx_new_image(wf3d->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	wf3d->img_addr = mlx_get_data_addr(wf3d->img_ptr, &wf3d->bits_per_pixel, &wf3d->size_line, &wf3d->endian);
-
 	if (START_POS_X < 0 || START_POS_X >= wf3d->map_width
 	|| START_POS_Y < 0 || START_POS_Y >= wf3d->map_height)
 		return (INVALID_STARTING);
@@ -57,8 +56,10 @@ static void	wolf3d(char *path)
 	if ((errno = map_extractor(path, wf3d)) != NO_ERR)
 		mlx_del(wf3d);
 	ft_putendl("point 1");
-	if ((errno = init_wolf3d(wf3d)) != NO_ERR)
+	if ((errno = init_wolf3d(wf3d)) != NO_ERR){
+		ft_putendl("error point0\n");
 		mlx_del(wf3d);
+	}
 	ft_putendl("point 2");
 	if ((errno = render(wf3d)) != NO_ERR)
 		mlx_del(wf3d);

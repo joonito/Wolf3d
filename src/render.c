@@ -3,6 +3,7 @@
 
 void    render_partition(t_wf3d *wf3d, int start, int end)
 {
+    ft_putendl("render_partition is called");
     for (int x = start; x < end; x++)
     {
         double camera_x = (double)(2 * x) / (double)WINDOW_WIDTH - 1;
@@ -63,9 +64,9 @@ void    render_partition(t_wf3d *wf3d, int start, int end)
                 hit = 1;
         }
         if (side == 0)
-            perp_wall_dist = (map_x - wf3d->my_pos.x + (1 - step_x) / 2) / ray_dir_x;
+            perp_wall_dist = abs_flt((map_x - wf3d->my_pos.x + (1 - step_x) / 2) / ray_dir_x);
         else
-            perp_wall_dist = (map_y - wf3d->my_pos.y + (1 - step_y) / 2) / ray_dir_y;
+            perp_wall_dist = abs_flt((map_y - wf3d->my_pos.y + (1 - step_y) / 2) / ray_dir_y);
         int line_height = (int)(WINDOW_HEIGHT / perp_wall_dist);
         int draw_start = - line_height / 2 + WINDOW_HEIGHT / 2;
         if(draw_start < 0)
@@ -74,13 +75,13 @@ void    render_partition(t_wf3d *wf3d, int start, int end)
         if(draw_end >= WINDOW_HEIGHT)
             draw_end = WINDOW_HEIGHT - 1;
         int color;
+        printf("draw_start draw_end == %d %d\n", draw_start, draw_end);
         switch(wf3d->map[map_y][map_x])
         {
           case 1:  color = RED;  break; //red
           case 2:  color = GREEN;  break; //green
           case 3:  color = BLUE;   break; //blue
           case 4:  color = WHITE;  break; //white
-          default: color = YELLOW; break; //yellow
         }
         if (side == 1)
             color = color / 2;
@@ -138,16 +139,20 @@ void     *render_multi_8(void *param)
 
 int     render(t_wf3d *wf3d)
 {
-    prepare_new_img(wf3d);
-    pthread_t   threads[NUM_THREADS];
+    int     i;
 
-    for (int i = 0; i < NUM_THREADS; i++)
+    prepare_new_img(wf3d);
+    i = 0;
+    while (i < NUM_THREADS)
     {
-        pthread_create(&threads[i], NULL, wf3d->render_fn[i], wf3d);
+        pthread_create(&(wf3d->threads[i]), NULL, wf3d->render_fn[i], wf3d);
+        i++;
     }
-    for (int i = 0; i < NUM_THREADS; i++)
+    i = 0;
+    while (i < NUM_THREADS)
     {
-        pthread_join(threads[i], NULL);
+        pthread_join((wf3d->threads[i]), NULL);
+        i++;
     }
 	mlx_put_image_to_window(wf3d->mlx_ptr, wf3d->win_ptr, wf3d->img_ptr, 0, 0);
     return (NO_ERR);

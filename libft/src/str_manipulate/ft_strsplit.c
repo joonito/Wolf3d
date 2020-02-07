@@ -12,51 +12,49 @@
 
 #include "../../includes/libft.h"
 
-static char		*ft_strchr_rev(const char *s, int c)
+static int		ft_word_count(char const *s, char c)
 {
-	int		i;
-	char	*str;
+	int wd;
 
-	if (s == NULL)
-		return (NULL);
-	i = 0;
-	str = (char *)s;
-	while (str[i] == c)
-		i++;
-	if (str[i] == '\0')
-		return (NULL);
-	return (&(str[i]));
+	wd = 0;
+	while (*s)
+	{
+		while (*s == c)
+			s++;
+		if (*s == '\0')
+			return (wd);
+		while (*s && *s != c)
+			s++;
+		wd++;
+	}
+	return (wd);
 }
 
 char			**ft_strsplit(char const *s, char c)
 {
-	int		wd_count;
-	char	*pos_start;
-	char	*pos_end;
-	char	**arr;
+	char		**array;
+	int			i;
+	int			wd;
+	int			ch;
 
-	if (s == NULL)
+	if (!s || !c)
 		return (NULL);
-	wd_count = 0;
-	pos_end = (char *)s;
-	while ((pos_start = ft_strchr_rev(pos_end, c)) != NULL)
-	{
-		pos_end = ft_strchr(pos_start, c);	
-		wd_count++;
-	}
-	if (!(arr = ft_memalloc(sizeof(char *) * (wd_count + 1))))
+	wd = ft_word_count(s, c);
+	if (!(array = (char **)malloc(sizeof(char *) * (wd + 1))))
 		return (NULL);
-	wd_count = 0;
-	pos_end = (char *)s;
-	while ((pos_start = ft_strchr_rev(pos_end, c)) != NULL)
+	array[wd--] = NULL;
+	i = (int)ft_strlen(s) - 1;
+	while (wd >= 0)
 	{
-		pos_end = ft_strchr(pos_start, c);
-		if (pos_end == NULL)
-			pos_end = (char *)&(s[ft_strlen(s)]);
-		if (!(arr[wd_count++] = ft_strndup(pos_start, pos_end - pos_start))) {
-			arr_of_strdel(arr);
-			return (NULL);
+		while (s[i] == c && i >= 0)
+			i--;
+		ch = 0;
+		while (s[i] != c && i >= 0)
+		{
+			i--;
+			ch++;
 		}
+		array[wd--] = ft_strsub(s, i + 1, ch);
 	}
-	return (arr);
+	return (array);
 }
