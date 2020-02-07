@@ -63,7 +63,10 @@ void			deque_pop_front(t_deque *deque)
 		return ;
 	node = deque->first;
 	deque->first = node->next;
-	deque->first->prev = NULL;
+	if (deque->first == NULL)
+		deque->last = NULL;
+	else
+		deque->first->prev = NULL;
 	free(node);
 	deque->size--;
 }
@@ -76,7 +79,10 @@ void			deque_pop_back(t_deque *deque)
 		return ;
 	node = deque->last;
 	deque->last = node->prev;
-	deque->last->next = NULL;
+	if (deque->last == NULL)
+		deque->first = NULL;
+	else
+		deque->last->next = NULL;
 	free(node);
 	deque->size--;
 }
@@ -108,17 +114,17 @@ void			*deque_at(t_deque *deque, size_t pos)
 	t_dlist	*node;
 
 	if (is_empty_deque(deque))
-		return (0);
+		return (NULL);
 	if (deque->size <= pos)
-		return (0);
+		return (NULL);
 	i = 0;
 	node = deque->first;
-	while (i != pos)
+	while (i < pos)
 	{
 		node = node->next;
 		i++;
 	}
-	return (node);
+	return (node->content);
 }
 
 void			deque_foreach(t_deque *deque, void (*f) (void *))

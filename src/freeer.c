@@ -1,31 +1,21 @@
 
 #include "../include/wolf3d.h"
 
-static void     map_del(t_deque *map)
+static void     map_del(int **map)
 {
-    t_deque *map_line;
-
-    while (!is_empty_deque(map))
-    {
-        map_line = deque_front(map);
-        deque_pop_front(map);
-        while (!is_empty_deque(map_line))
-        {
-            free(deque_front(map_line));
-            deque_pop_front(map_line);
-        }
-        ft_memdel((void **)&map_line);
-    }
+    int i = 0;
+    while (map[i] != NULL)
+        ft_memdel((void **)&map[i]);
     ft_memdel((void **)&map);
 }
 
-void            mlx_del(t_mlx *mlx)
+void            mlx_del(t_wf3d *wf3d)
 {
-    if (mlx->mlx_ptr != NULL)
-        free(mlx->mlx_ptr);
-    if (mlx->win_ptr != NULL)
-        free(mlx->win_ptr);
-    if (mlx->map != NULL)
-        map_del(mlx->map);
+    if (wf3d->mlx_ptr != NULL)
+        free(wf3d->mlx_ptr);
+    if (wf3d->win_ptr != NULL)
+        free(wf3d->win_ptr);
+    if (wf3d->map != NULL)
+        map_del(wf3d->map);
     error_exit();
 }

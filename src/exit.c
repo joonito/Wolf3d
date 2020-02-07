@@ -2,22 +2,18 @@
 
 int exit_by_red(void *param)
 {
-    t_mlx *mlx = param;
-	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
-	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+    t_wf3d *wf3d = param;
+	mlx_destroy_image(wf3d->mlx_ptr, wf3d->img_ptr);
+	mlx_clear_window(wf3d->mlx_ptr, wf3d->win_ptr);
+	mlx_destroy_window(wf3d->mlx_ptr, wf3d->win_ptr);
 	ft_printf("%s\n", "Program is closed");
     exit(EXIT_SUCCESS);
 }
 
-int	exit_by_esc(int keycode, void *param)
+int exit_by_esc(t_wf3d *wf3d)
 {
-	if (keycode == 53)
-	{
-		t_mlx *mlx = param;
-		mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
-		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-		ft_printf("%s\n", "Program is closed");
-		exit(EXIT_SUCCESS);
-	}
-	return (0);
+	mlx_clear_window(wf3d->mlx_ptr, wf3d->win_ptr);
+	mlx_destroy_window(wf3d->mlx_ptr, wf3d->win_ptr);
+	ft_printf("%s\n", "Program is closed");
+	exit(EXIT_SUCCESS);
 }

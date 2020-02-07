@@ -12,7 +12,9 @@
 
 CC := gcc
 
-CFLAGS := -Wall -Wextra -Werror
+# CFLAGS := -pthread
+
+CFLAGS := -Wall -Wextra -Werror -pthread
 
 MLXFLAGS := -lmlx -framework OpenGL -framework AppKit
 

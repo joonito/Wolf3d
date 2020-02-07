@@ -174,5 +174,13 @@ void			deque_foreach(t_deque *deque, void (*f) (void *));
 void			ft_put_arr_of_str(char ** arr);
 void			arr_of_strdel(char **arr);
 size_t  		arr_of_strlen(char **arr);
+//comparison
+long long int	min_int(long long int a, long long int b);
+long long int	max_int(long long int a, long long int b);
+long double		min_flt(long double a, long double b);
+long double		max_flt(long double a, long double b);
+//absolute
+long long int	abs_int(long long int i);
+long double		abs_flt(long double f);
 
 #endif

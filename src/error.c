@@ -12,8 +12,10 @@ void    error_exit(void)
     arr_str[2] = "Failed to open file";
     arr_str[3] = "Map is of invalid format";
     arr_str[4] = "Input is invalid";
-    arr_str[5] = "Allocation failed";
+    arr_str[5] = "Memory Allocation failed";
     arr_str[6] = "Map is empty";
+    arr_str[7] = "Invalid starting position";
+    arr_str[8] = "Invalid access to map";
     ft_putendl_fd(arr_str[errno % 103], 2);
 	exit( EXIT_FAILURE );
 }
