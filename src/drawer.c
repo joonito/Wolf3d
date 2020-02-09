@@ -18,7 +18,7 @@ void        img_pixel_put(t_wf3d *wf3d, int x, int y, int color)
     
     if (x >= WINDOW_WIDTH || y >= WINDOW_HEIGHT || x < 0 || y < 0)
     {
-        ft_putendl_fd("Pixel out of range\n", 2);
+        ft_putendl_fd("pixel out of range", 2);
         return ;
     }
     addr = wf3d->img_addr;

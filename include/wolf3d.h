@@ -28,16 +28,24 @@
 #define NUM_THREADS 8
 
 //window size
-#define WINDOW_WIDTH 640
-#define WINDOW_HEIGHT 480
+#define WINDOW_WIDTH 1200
+#define WINDOW_HEIGHT 900
 
-//starting position
-#define START_POS_X 12
-#define START_POS_Y 22
-#define DIR_VEC_X 1
-#define DIR_VEC_Y 0
-#define CAM_VEC_X 0
-#define CAM_VEC_Y 0.66
+//starting value
+#define START_POS_X 1
+#define START_POS_Y 1
+#define DIR_VEC_X 0
+#define DIR_VEC_Y 1
+#define CAM_VEC_X 0.66
+#define CAM_VEC_Y 0
+#define INIT_SPEED 0.1
+
+//wall hieght
+#define WALL_HEIGHT 1
+
+//pre-computed value
+#define SIN_THETA 0.017452
+#define COS_THETA 0.999847
 
 //error mangement
 #define ERR_STR_COUNT 9
@@ -52,14 +60,20 @@
 #define INVALID_STARTING 110
 #define INVALID_ACCESS_TO_MAP 111
 
-//grid size
-#define GRID_SIZE 256
-
 //key code
+#define ESC 53
 #define LEFT_ARROW 123
 #define RIGHT_ARROW 124
 #define DOWN_ARROW 125
 #define UP_ARROW 126
+#define KEY_A 0
+#define KEY_D 2
+#define KEY_S 1
+#define KEY_W 13
+#define KEY_R 15
+#define KEY_T 17
+#define PLUS 24
+#define MINUS 27
 
 //mouse code
 #define LEFT_CLICK 1
@@ -78,8 +92,13 @@
 #define YELLOW 0xFFFF00
 #define CYAN 0x00FFFF
 #define PURPLE 0xFF00FF
+#define BROWN 0x964B00
+#define SKYBLUE 0x00CCFF
 
+typedef struct      s_wf3d t_wf3d;
+typedef struct      s_pointf t_pointf;
 typedef void *(* render_fp)(void *);
+typedef void (*move_fp)(t_wf3d *, t_pointf, t_pointf);
 
 typedef struct      s_point
 {
@@ -113,6 +132,8 @@ typedef struct      s_wf3d
     t_pointf        camera_plane;
     pthread_t       threads[NUM_THREADS];
     render_fp       render_fn[NUM_THREADS];
+    move_fp         move_fn[4];
+    float           speed;
     t_boolean       state_change;
 }                   t_wf3d;
 
@@ -135,6 +156,12 @@ void                change_direction(t_wf3d *wf3d, int mouse_pos);
 int                 prepare_new_img(void *param);
 int                 refresh_img(void * param);
 int                 render(t_wf3d *wf3d);
+long double         get_magnitude(t_pointf p);
+t_pointf            to_unit_vec(t_pointf p);
+void                move_forward(t_wf3d *wf3d, t_pointf d_unit, t_pointf c_unit);
+void                move_backward(t_wf3d *wf3d, t_pointf d_unit, t_pointf c_unit);
+void                move_leftside(t_wf3d *wf3d, t_pointf d_unit, t_pointf c_unit);
+void                move_rightside(t_wf3d *wf3d, t_pointf d_unit, t_pointf c_unit);
 void                *render_multi_1(void *param);
 void                *render_multi_2(void *param);
 void                *render_multi_3(void *param);
@@ -143,5 +170,8 @@ void                *render_multi_5(void *param);
 void                *render_multi_6(void *param);
 void                *render_multi_7(void *param);
 void                *render_multi_8(void *param);
+void                reset_position(t_wf3d *wf3d);
+void                teleport(t_wf3d *wf3d);
+void                change_speed(t_wf3d *wf3d, int keycode);
 
 #endif

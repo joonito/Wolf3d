@@ -19,5 +19,7 @@ int     refresh_img(void *param)
         mlx_put_image_to_window(wf3d->mlx_ptr, wf3d->win_ptr, wf3d->img_ptr, 0, 0);
         wf3d->state_change = false;
     }
+	// mlx_put_image_to_window(wf3d->mlx_ptr, wf3d->win_ptr, wf3d->img_ptr, 0, 0);
+    // prepare_new_img(param);
     return (0);
 }

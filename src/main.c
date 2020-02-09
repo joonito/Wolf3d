@@ -36,6 +36,7 @@ static int	init_wolf3d(t_wf3d *wf3d)
 	wf3d->my_pos = to_pointf(START_POS_X, START_POS_Y);	
 	wf3d->direction = to_pointf(DIR_VEC_X, DIR_VEC_Y);
 	wf3d->camera_plane = to_pointf(CAM_VEC_X, CAM_VEC_Y);
+	wf3d->speed = INIT_SPEED;
 	wf3d->render_fn[0] = render_multi_1;
     wf3d->render_fn[1] = render_multi_2;
     wf3d->render_fn[2] = render_multi_3;
@@ -44,6 +45,10 @@ static int	init_wolf3d(t_wf3d *wf3d)
     wf3d->render_fn[5] = render_multi_6;
     wf3d->render_fn[6] = render_multi_7;
     wf3d->render_fn[7] = render_multi_8;
+	wf3d->move_fn[0] = move_leftside;
+	wf3d->move_fn[1] = move_rightside;
+	wf3d->move_fn[2] = move_backward;
+	wf3d->move_fn[3] = move_forward;
 	return (NO_ERR);
 }
 
@@ -51,15 +56,14 @@ static void	wolf3d(char *path)
 {
 	t_wf3d*	wf3d;
 	
+    srand(time(NULL));   // Initialization, should only be called once.
 	wf3d = ft_memalloc(sizeof(t_wf3d));
 	ft_putendl("point 0");
 	if ((errno = map_extractor(path, wf3d)) != NO_ERR)
 		mlx_del(wf3d);
 	ft_putendl("point 1");
-	if ((errno = init_wolf3d(wf3d)) != NO_ERR){
-		ft_putendl("error point0\n");
+	if ((errno = init_wolf3d(wf3d)) != NO_ERR)
 		mlx_del(wf3d);
-	}
 	ft_putendl("point 2");
 	if ((errno = render(wf3d)) != NO_ERR)
 		mlx_del(wf3d);
