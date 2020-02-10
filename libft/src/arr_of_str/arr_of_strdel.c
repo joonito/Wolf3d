@@ -9,6 +9,7 @@ void	arr_of_strdel(char **arr)
     if (arr == NULL)
         return ;
     while (arr[i] != NULL)
-        ft_strdel(&(arr[i++]));
+        ft_memdel((void **)&(arr[i++]));
+    ft_memdel((void **)&(arr[i]));
     ft_memdel((void **)&arr);
 }

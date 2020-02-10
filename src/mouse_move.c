@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse_move.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: julee <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/09 18:07:00 by julee             #+#    #+#             */
+/*   Updated: 2020/02/09 18:21:53 by julee            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/wolf3d.h"
 
-int mouse_move(int x, int y, void *param)
+int	mouse_move(int x, int y, void *param)
 {
-    y = 0;
-    change_direction(param, x);
-    return (0);
+	y = 0;
+	change_direction(param, x);
+	return (0);
 }

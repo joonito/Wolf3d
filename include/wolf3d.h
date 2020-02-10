@@ -30,6 +30,8 @@
 //window size
 #define WINDOW_WIDTH 1200
 #define WINDOW_HEIGHT 900
+#define LEFT_SIDE (WINDOW_WIDTH / 3)
+#define RIGHT_SIDE (LEFT_SIDE * 2)
 
 //starting value
 #define START_POS_X 1
@@ -95,8 +97,14 @@
 #define BROWN 0x964B00
 #define SKYBLUE 0x00CCFF
 
-typedef struct      s_wf3d t_wf3d;
-typedef struct      s_pointf t_pointf;
+//ceiling color
+#define CEILING SKYBLUE
+
+//floor color
+#define FLOOR PURPLE
+
+typedef struct s_wf3d t_wf3d;
+typedef struct s_pointf t_pointf;
 typedef void *(* render_fp)(void *);
 typedef void (*move_fp)(t_wf3d *, t_pointf, t_pointf);
 
@@ -121,12 +129,10 @@ typedef struct      s_wf3d
     int             size_line;
     int             endian;
     char            *img_addr;
-
     int             **map;
     size_t          map_width;
     size_t          map_height;
     size_t          map_capacity;
-    
     t_pointf        my_pos;
     t_pointf        direction;
     t_pointf        camera_plane;
@@ -134,7 +140,7 @@ typedef struct      s_wf3d
     render_fp       render_fn[NUM_THREADS];
     move_fp         move_fn[4];
     float           speed;
-    t_boolean       state_change;
+    t_boolean       freeze;
 }                   t_wf3d;
 
 void                error_exit(void);
@@ -154,7 +160,6 @@ int                 mouse_press(int button, int x, int y, void *param);
 void                key_press_move(t_wf3d *wf3d, int keycode);
 void                change_direction(t_wf3d *wf3d, int mouse_pos);
 int                 prepare_new_img(void *param);
-int                 refresh_img(void * param);
 int                 render(t_wf3d *wf3d);
 long double         get_magnitude(t_pointf p);
 t_pointf            to_unit_vec(t_pointf p);

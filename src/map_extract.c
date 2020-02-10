@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_extract.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: julee <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/09 18:08:32 by julee             #+#    #+#             */
+/*   Updated: 2020/02/09 18:25:40 by julee            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/wolf3d.h"
 
+// for test, will be earased afterward
 void		int_arr_print(t_wf3d *wf3d)
 {
 	int **arr = wf3d->map;
@@ -18,42 +31,62 @@ void		int_arr_print(t_wf3d *wf3d)
 	}
 }
 
-static void	store_line(t_wf3d *wf3d, char **arr_of_str)
+static int	*copy_arr(t_wf3d *wf3d, char **arr_of_str)
 {
-	int	*int_arr;
 	int	i;
-	int **tmp = NULL;
+	int	*int_arr;
 
-	i = 0;
-	printf("map_height0 == %zu\n", wf3d->map_height);
-	printf("map_capacity == %zu\n", wf3d->map_capacity);
 	int_arr = ft_memalloc(wf3d->map_width * sizeof(int));
-	printf("arr of str len == %zu\n", arr_of_strlen(arr_of_str));
+	i = 0;
 	while (arr_of_str[i] != NULL)
 	{
 		int_arr[i] = ft_atoi(arr_of_str[i]);
 		i++;
 	}
-	printf(" i == %d\n", i);
+	return (int_arr);
+}
+
+static void	arr_free(char **arr_of_str)
+{
+	int	i;
+	int arr_len;
+
+	arr_len = arr_of_strlen(arr_of_str);
+	i = 0;
+	while (i <= arr_len)
+		ft_memdel((void **)&(arr_of_str[i++]));
+	ft_memdel((void **)&arr_of_str);
+}
+
+// size doubling is used
+static void	store_line(t_wf3d *wf3d, char **arr_of_str)
+{
+	int	i;
+	int	*int_arr;
+	int **tmp;
+
+	int_arr = copy_arr(wf3d, arr_of_str);
+	arr_free(arr_of_str);
 	if (wf3d->map == NULL)
 	{
 		wf3d->map = ft_memalloc(sizeof(int *));
 		wf3d->map_capacity = 1;
 	}
-	if (wf3d->map_height == wf3d->map_capacity)
+	else if (wf3d->map_height == wf3d->map_capacity)
 	{
 		tmp = wf3d->map;
-		ft_putendl("point 4");
 		wf3d->map_capacity *= 2;
 		wf3d->map = ft_memalloc(sizeof(int *) * wf3d->map_capacity);
-		for (i = 0; (size_t)i < wf3d->map_height; i++)
+		i = 0;
+		while ((size_t)i < wf3d->map_height)
+		{
 			wf3d->map[i] = tmp[i];
-		free(tmp);
+			i++;
+		}
+		ft_memdel((void **)&tmp);
 		wf3d->map_height = i;
 	}
 	wf3d->map[wf3d->map_height++] = int_arr;
-	// printf("map_height1 == %zu\n", wf3d->map_height);
-	// printf("map_height2 == %zu\n", wf3d->map_height);
 	return ;
 }
 
@@ -69,6 +102,7 @@ int			map_extractor(const char *path, t_wf3d *wf3d)
 	if ((fd = open(path, O_RDONLY)) < 0)
 		return (OPEN_FAILURE);
 	prev = 0;
+	//after this while loop, it's leaking, I assume it's because of store_line function
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (!is_valid_line(line))
@@ -81,6 +115,6 @@ int			map_extractor(const char *path, t_wf3d *wf3d)
 		store_line(wf3d, arr_of_str);
 		ft_strdel(&line);
 	}
-	int_arr_print(wf3d);
+	close(fd);
 	return ((wf3d->map_width == 0) ? EMPTY_MAP : NO_ERR);
 }

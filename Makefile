@@ -12,8 +12,6 @@
 
 CC := gcc
 
-# CFLAGS := -pthread
-
 CFLAGS := -Wall -Wextra -Werror -pthread
 
 MLXFLAGS := -lmlx -framework OpenGL -framework AppKit

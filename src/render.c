@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: julee <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/09 18:11:18 by julee             #+#    #+#             */
+/*   Updated: 2020/02/09 18:13:52 by julee            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/wolf3d.h"
 
-void    render_partition(t_wf3d *wf3d, int start, int end)
+void	render_partition(t_wf3d *wf3d, int start, int end)
 {
     for (int x = start; x < end; x++)
     {
@@ -125,79 +136,79 @@ void    render_partition(t_wf3d *wf3d, int start, int end)
               case 4:  color = RED;  break;
               default :  color = GREEN;  break;
             }
-        // if (side == 1)
-        //     color = color / 3 * 4;
-        img_line_put(wf3d, to_point(x, 0), to_point(x, draw_start), SKYBLUE);
+        if (side == 1)
+            color = color / 3 * 2;
+        img_line_put(wf3d, to_point(x, 0), to_point(x, draw_start), CEILING);
         img_line_put(wf3d, to_point(x, draw_start), to_point(x, draw_end), color);
-        img_line_put(wf3d, to_point(x, draw_end), to_point(x, WINDOW_HEIGHT), BROWN);
+        img_line_put(wf3d, to_point(x, draw_end), to_point(x, WINDOW_HEIGHT), FLOOR);
     }
 }
 
-void     *render_multi_1(void *param)
+void	*render_multi_1(void *param)
 {
-    render_partition(param, 0, WINDOW_WIDTH / 8);
-    return 0;
+	render_partition(param, 0, WINDOW_WIDTH / 8);
+	return (0);
 }
 
-void     *render_multi_2(void *param)
+void	*render_multi_2(void *param)
 {
-    render_partition(param, WINDOW_WIDTH / 8, WINDOW_WIDTH * 2 / 8);
-    return 0;
+	render_partition(param, WINDOW_WIDTH / 8, WINDOW_WIDTH * 2 / 8);
+	return (0);
 }
 
-void     *render_multi_3(void *param)
+void	*render_multi_3(void *param)
 {
-    render_partition(param, WINDOW_WIDTH * 2 / 8, WINDOW_WIDTH * 3 / 8);    
-    return 0;
+	render_partition(param, WINDOW_WIDTH * 2 / 8, WINDOW_WIDTH * 3 / 8);    
+	return (0);
 }
 
-void     *render_multi_4(void *param)
+void	*render_multi_4(void *param)
 {
-    render_partition(param, WINDOW_WIDTH * 3 / 8, WINDOW_WIDTH * 4 / 8);
-    return 0;
+	render_partition(param, WINDOW_WIDTH * 3 / 8, WINDOW_WIDTH * 4 / 8);
+	return (0);
 }
 
-void     *render_multi_5(void *param)
+void	*render_multi_5(void *param)
 {
-    render_partition(param, WINDOW_WIDTH * 4 / 8, WINDOW_WIDTH * 5 / 8);
-    return 0;
+	render_partition(param, WINDOW_WIDTH * 4 / 8, WINDOW_WIDTH * 5 / 8);
+	return (0);
 }
 
-void     *render_multi_6(void *param)
+void	*render_multi_6(void *param)
 {
-    render_partition(param, WINDOW_WIDTH * 5 / 8, WINDOW_WIDTH * 6 / 8);
-    return 0;
+	render_partition(param, WINDOW_WIDTH * 5 / 8, WINDOW_WIDTH * 6 / 8);
+	return (0);
 }
 
-void     *render_multi_7(void *param)
+void	*render_multi_7(void *param)
 {
-    render_partition(param, WINDOW_WIDTH * 6 / 8, WINDOW_WIDTH * 7 / 8);
-    return 0;
+	render_partition(param, WINDOW_WIDTH * 6 / 8, WINDOW_WIDTH * 7 / 8);
+	return (0);
 }
 
-void     *render_multi_8(void *param)
+void	*render_multi_8(void *param)
 {
-    render_partition(param, WINDOW_WIDTH * 7 / 8, WINDOW_WIDTH);
-    return 0;
+	render_partition(param, WINDOW_WIDTH * 7 / 8, WINDOW_WIDTH);
+	return (0);
 }
 
-int     render(t_wf3d *wf3d)
+int		render(t_wf3d *wf3d)
 {
-    int     i;
+	int	i;
 
-    prepare_new_img(wf3d);
-    i = 0;
-    while (i < NUM_THREADS)
-    {
-        pthread_create(&(wf3d->threads[i]), NULL, wf3d->render_fn[i], wf3d);
-        i++;
-    }
-    i = 0;
-    while (i < NUM_THREADS)
-    {
-        pthread_join((wf3d->threads[i]), NULL);
-        i++;
-    }
+	prepare_new_img(wf3d);
+	i = 0;
+	while (i < NUM_THREADS)
+	{
+		pthread_create(&(wf3d->threads[i]), NULL, wf3d->render_fn[i], wf3d);
+		i++;
+	}
+	i = 0;
+	while (i < NUM_THREADS)
+	{
+		pthread_join((wf3d->threads[i]), NULL);
+		i++;
+	}
 	mlx_put_image_to_window(wf3d->mlx_ptr, wf3d->win_ptr, wf3d->img_ptr, 0, 0);
-    return (NO_ERR);
+	return (NO_ERR);
 }
