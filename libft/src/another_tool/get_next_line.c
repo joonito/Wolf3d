@@ -12,71 +12,44 @@
 
 #include "../../includes/libft.h"
 
-int		buff_check(char *buff, char **line)
+static int  determine_line(char **str, char **line)
 {
-	char	*c;
-	char	*tmp;
+    char    *tmp;
 
-	*line = ft_strdup("");
-	if (buff[0] != '\0')
-	{
-		c = ft_strchr(buff, '\n');
-		if ((tmp = ft_strchr(++c, '\n')) != NULL)
-		{
-			c = ft_strsub(buff, c - buff, tmp - c);
-			*line = ft_strdup(c);
-			free(c);
-			ft_strcpy(buff, tmp);
-			return (1);
-		}
-		else
-			*line = ft_strdup(c);
-	}
-	return (0);
+    if ((*str)[0] == '\0')
+        return (0);
+    if (ft_strchr(*str, '\n') && !(*(ft_strchr(*str, '\n')) = '\0'))
+    {
+        *line = ft_strdup(*str);
+        tmp = ft_strdup(ft_strchr(*str, '\0') + 1);
+        free(*str);
+        *str = tmp;
+    }
+    else
+    {
+        *line = ft_strdup(*str);
+        ft_memdel((void **)str);
+    }
+    return (1);
 }
 
-int		buff_check2(char *buff, char **line)
+int         get_next_line(const int fd, char **line)
 {
-	char	*c;
-	char	*tmp;
+    int         br;
+    char        buffer[BUFF_SIZE + 1];
+    static char *str[5000];
+    char        *tmp;
 
-	if ((c = ft_strchr(buff, '\n')) != NULL)
-	{
-		c = ft_strsub(buff, 0, c - buff);
-		tmp = ft_strjoin(*line, c);
-		free(c);
-		free(*line);
-		*line = tmp;
-		return (1);
-	}
-	else
-	{
-		tmp = ft_strjoin(*line, buff);
-		free(*line);
-		*line = tmp;
-	}
-	return (0);
-}
-
-int		get_next_line(const int fd, char **line)
-{
-	static char		buff[BUFF_SIZE + 1];
-	int				r;
-
-	if (fd < 0 || line == NULL)
-		return (-1);
-	if (buff_check(buff, line))
-		return (1);
-	while ((r = read(fd, buff, BUFF_SIZE)) > 0)
-	{
-		buff[r] = '\0';
-		if (buff_check2(buff, line))
-			return (1);
-	}
-	if (r == 0 && **line != '\0')
-	{
-		ft_strclr(buff);
-		return (1);
-	}
-	return (r == 0) ? 0 : -1;
+    if (fd == -1 || read(fd, buffer, 0) < 0 || !line)
+        return (-1);
+    (!(str[fd])) && (str[fd] = ft_strnew(0));
+    while (!ft_strchr(str[fd], '\n') && (br = read(fd, buffer, BUFF_SIZE)))
+    {
+        buffer[br] = '\0';
+        tmp = ft_strjoin(str[fd], buffer);
+        free(str[fd]);
+        str[fd] = ft_strdup(tmp);
+        free(tmp);
+    }
+    return (determine_line(&str[fd], line));
 }

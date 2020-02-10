@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   change_direction.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: julee <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/09 19:03:43 by julee             #+#    #+#             */
+/*   Updated: 2020/02/09 19:03:45 by julee            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/wolf3d.h"
 
 void	change_direction(t_wf3d *wf3d, int mouse_pos)
 {
-	float x;
-	float y;
-	float cx;
-	float cy;
-	
+	float	x;
+	float	y;
+	float	cx;
+	float	cy;
+
 	x = wf3d->direction.x;
 	y = wf3d->direction.y;
 	cx = wf3d->camera_plane.x;

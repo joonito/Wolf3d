@@ -54,6 +54,11 @@ static int	init_wolf3d(t_wf3d *wf3d)
 	wf3d->direction = to_pointf(DIR_VEC_X, DIR_VEC_Y);
 	wf3d->camera_plane = to_pointf(CAM_VEC_X, CAM_VEC_Y);
 	wf3d->speed = INIT_SPEED;
+	wf3d->color_arr[0] = RED;
+	wf3d->color_arr[1] = GREEN;
+	wf3d->color_arr[2] = BLUE;
+	wf3d->color_arr[3] = WHITE;
+	wf3d->color_arr[4] = YELLOW;
 	set_fp(wf3d);
 	return (NO_ERR);
 }

@@ -138,10 +138,36 @@ typedef struct      s_wf3d
     t_pointf        camera_plane;
     pthread_t       threads[NUM_THREADS];
     render_fp       render_fn[NUM_THREADS];
+    int             color_arr[5];
     move_fp         move_fn[4];
     float           speed;
     t_boolean       freeze;
 }                   t_wf3d;
+
+typedef struct      s_render
+{
+    int             x;
+    double          camera_x;
+    double          ray_dir_x;
+    double          ray_dir_y;
+    int             map_x;
+    int             map_y;
+    double          side_dist_x;
+    double          side_dist_y;
+    double          delta_dist_x;
+    double          delta_dist_y;
+    double          perp_wall_dist;
+    int             step_x;
+    int             step_y;
+    int             hit;
+    int             side;
+    int             line_height;
+    int             draw_start;
+    int             draw_end;
+    int             color;
+    int             side_dir;
+}                   t_render;
+
 
 void                error_exit(void);
 void                mlx_del(t_wf3d *wf3d);
@@ -160,13 +186,22 @@ int                 mouse_press(int button, int x, int y, void *param);
 void                key_press_move(t_wf3d *wf3d, int keycode);
 void                change_direction(t_wf3d *wf3d, int mouse_pos);
 int                 prepare_new_img(void *param);
-int                 render(t_wf3d *wf3d);
 long double         get_magnitude(t_pointf p);
 t_pointf            to_unit_vec(t_pointf p);
 void                move_forward(t_wf3d *wf3d, t_pointf d_unit, t_pointf c_unit);
 void                move_backward(t_wf3d *wf3d, t_pointf d_unit, t_pointf c_unit);
 void                move_leftside(t_wf3d *wf3d, t_pointf d_unit, t_pointf c_unit);
 void                move_rightside(t_wf3d *wf3d, t_pointf d_unit, t_pointf c_unit);
+void                reset_position(t_wf3d *wf3d);
+void                teleport(t_wf3d *wf3d);
+void                change_speed(t_wf3d *wf3d, int keycode);
+int                 render(t_wf3d *wf3d);
+void	            render_partition(t_wf3d *wf3d, int start, int end);
+void                init_var(t_wf3d *wf3d, t_render *rd);
+void                set_step(t_wf3d *wf3d, t_render *rd);
+int                 find_hit(t_wf3d *wf3d, t_render *rd);
+void                color_picker(t_wf3d *wf3d, t_render *rd);
+void                calculate_distance(t_wf3d *wf3d, t_render *rd);
 void                *render_multi_1(void *param);
 void                *render_multi_2(void *param);
 void                *render_multi_3(void *param);
@@ -175,8 +210,5 @@ void                *render_multi_5(void *param);
 void                *render_multi_6(void *param);
 void                *render_multi_7(void *param);
 void                *render_multi_8(void *param);
-void                reset_position(t_wf3d *wf3d);
-void                teleport(t_wf3d *wf3d);
-void                change_speed(t_wf3d *wf3d, int keycode);
 
 #endif
