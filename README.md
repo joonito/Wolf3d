@@ -2,6 +2,8 @@
 
 ![Alt Text](./wolf3d.gif)
 
+(👆gif image)
+
 Write your own version of **Wolfenstein 3D**!<br>
 
 ### General instructions
